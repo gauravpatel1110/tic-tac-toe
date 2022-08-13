@@ -1,0 +1,89 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+.App-row{
+  display: flex;
+  flex-direction: row;
+}
+.App-column{
+  display: flex;
+  flex-direction: column;
+}
+.PlayerStatus{
+  background: white;
+  padding: 10px;
+  margin: 50px;
+  border: 1px solid black;
+  width: 200px;
+}
+
+.PlayerContainer,.BoardContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.PlayerSign{
+  display: flex;
+  width: 170px;
+}
+.PlayerCount{
+  justify-content: flex-end;
+}
+
+.StartGame{
+   justify-content: center;
+   text-align: center;
+  margin: 20px;
+}
+.App-link {
+  color: #61dafb;
+}
+
+.board{
+  background: aqua;
+  width: 500px;
+  justify-content: center;
+  text-align: center;
+}
+.box{
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  background: gray;
+  padding: 10px;
+  margin: 10px;
+  align-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
