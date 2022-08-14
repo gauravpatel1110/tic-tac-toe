@@ -60,11 +60,13 @@ export default class GameEngine {
         let playerData = this.extractPlayerData();
         let rules = this.getWinningRule();
         rules.map((arr) => {
-            if (playerData.p1.sort().toString() == arr.sort().toString()) {
+            let player1=_.intersection(playerData.p1,arr);
+            let player2=_.intersection(playerData.p2,arr);
+            if (player1.sort().toString() == arr.sort().toString()) {
                 winner = true;
                 player = "1";
             }
-            if (playerData.p2.sort().toString() == arr.sort().toString()) {
+            if (player2.sort().toString() == arr.sort().toString()) {
                 winner = true;
                 player = "2";
             }
