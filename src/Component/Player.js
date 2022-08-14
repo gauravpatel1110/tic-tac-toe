@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {GameContext} from "../App";
 export default function Player(props){
     const context = useContext(GameContext);
@@ -11,9 +11,9 @@ export default function Player(props){
     }
     return (
         <>
-          <div onClick={()=>changeUser(props.playerNumber)} className='App-row PlayerStatus'>
-              <div className="PlayerSign">{props.sign}</div>
-              <div className="PlayerCount">{props.winningStatus}</div>
+          <div onClick={()=>changeUser(props.playerNumber)} className={"flex grid-cols-2 justify-between border-black border-2 " + (props.current==true?"current":"")}>
+              <div className="m-1 items-start">{props.sign}</div>
+              <div className="mr-2 m-1 items-end">{props.winningStatus}</div>
           </div>
         </>
     );

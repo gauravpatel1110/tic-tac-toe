@@ -15,29 +15,33 @@ function App() {
     return (
       <div className="App">
           <GameContext.Provider value={gameData}>
-              <header className="App-header">
-                  <h1>Welcome to Tick Tac Toe </h1>
-                  <h2>{firstTurn.length > 0 && "You Selected "+(firstTurn=="1"?"player 1":"player 2")}</h2>
+              <header className="flex flex-col mt-10">
+                  <h1 className={'font-mono text-4xl'}>Tick Tac Toe </h1>
+                  <h2 className={'font-sans text-3xl mt-10'}>{firstTurn.length > 0 && "You Selected "+(firstTurn=="1"?"player - 1":"player - 2")}</h2>
               </header>
-              <div className='App-row PlayerContainer'>
-                  <label htmlFor="">Player-1</label>
-                  <Player playerNumber={1} winningStatus={p1Status} sign="O"/>
-                  <label htmlFor="">Player-2</label>
-                  <Player playerNumber={2} winningStatus={p2Status} sign="X"/>
+              <div className='m-2 lg:flex lg:justify-center lg:gap-x-4 lg:mt-16 sm:mt-10'>
+                  <div className={'lg:w-1/4'}>
+                      <label htmlFor="">Player-1</label>
+                      <Player playerNumber={1} current={(firstTurn=='1'?true:false)} winningStatus={p1Status} sign="O"/>
+                  </div>
+                  <div className={'lg:w-1/4'}>
+                      <label htmlFor="">Player-2</label>
+                      <Player playerNumber={2} current={(firstTurn=='2'?true:false)} winningStatus={p2Status} sign="X"/>
+                  </div>
               </div>
               {
                   gameStatus ==1 &&
-                  <div className='App-row BoardContainer'>
+                  <div className='flex-row BoardContainer'>
                       <Board firstTurn={firstTurn} gameStatus={gameStatus}/>
                   </div>
               }
 
-              <div className={'App-row StartGame'}>
+              <div className={'flex justify-center lg:mt-16 sm:mt-10'}>
                   {gameStatus==0 &&
-                      <button onClick={()=>setGameStatus(1)}>Start Game</button>
+                      <button className={'bg-blue-900 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'} onClick={()=>setGameStatus(1)}>Start Game</button>
                   }
                   {gameStatus==3 &&
-                      <button onClick={()=>setGameStatus(0)}>Re-Start Game</button>
+                      <button className={'bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded'} onClick={()=>setGameStatus(0)}>Re-Start Game</button>
                   }
               </div>
           </GameContext.Provider>

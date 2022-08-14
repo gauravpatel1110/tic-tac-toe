@@ -47,11 +47,15 @@ export default function Board (props){
     }
     return (
         <>
-            <div className={'App-row'}>
+            <div className={'flex flex-row justify-center items-center mt-10'}>
+                <h3 className={'bg-amber-400'}>Now Player {turn} Turn</h3>
+            </div>
+            <br/>
+            <div className={'flex flex-col items-center justify-center'}>
                 { Box.map(function(arr){
-                    return <div key={_.map(arr,(i)=>i.index).toString()} className={'App-column'}>{
+                    return <div key={_.map(arr,(i)=>i.index).toString()} className={'flex flex-row items-center justify-center gap-3'}>{
                     arr.map(function (i){
-                        return <div onClick={()=>selectBox(i)} className={'box'} key={i.index}>{i.sign}</div>;
+                        return <div onClick={()=>selectBox(i)} className={'flex bg-gray-900 m-3 hover:bg-gray-700 text-white text-4xl font-bold py-10 px-10 w-10 h-10 rounded items-center justify-center '+(i.player==""?"":(i.player=='1'?"ply1":"ply2"))} key={i.index}>{i.sign}</div>;
                     })}
                     </div>
                   })
