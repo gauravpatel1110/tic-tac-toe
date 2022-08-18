@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {GameContext} from "../App";
 import GameEngine from "../Lib/GameEngine";
 
@@ -10,6 +10,19 @@ export default function Board (props){
     const engine = new GameEngine();
     let box= engine.generateBoxData();
     const [Box,setBox]=useState(box);
+
+    useEffect(function (){
+        if(turn != props.firstTurn){
+            setTimeout(function (){
+                engine.addData(Box);
+                let selection= engine.botTurn(turn);
+                if(selection != null){
+                    selectBox({index:selection,'sign':'','player':''});
+                }
+            },1000);
+        }
+
+    },[turn]);
 
     function changeTurn(turn){
         return turn == "1"?"2":"1";
@@ -24,7 +37,7 @@ export default function Board (props){
         if(engine.getUpdateSelectionStatus()){
             setTurn(changeTurn(turn));
             let result = engine.getWinner();
-            if(engine.gameFinish){
+            if(engine.gameFinish && !result.winner){
                 context.gameData.setGameStatus(3);
                 alert("Draw");
             }
