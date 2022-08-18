@@ -9,9 +9,13 @@ export default class GameEngine {
     turn = "";
     playerSign=""
 
+    addData(data){
+        this.data = data;
+        return this;
+    }
     generateBoxData(){
        let box= Array.from(Array(9).keys(),i =>({'index':i,'sign':'','player':''}));
-       return box=_.chunk(box,3);
+       return _.chunk(box,3);
     }
 
     setCurrentSelection(i){
@@ -89,6 +93,44 @@ export default class GameEngine {
         return playerData;
     }
 
+    botTurn(turn){
+        let playerData = this.extractPlayerData();
+        let selectedData = [...playerData.p1,...playerData.p2];
+        let oppositeTurnData = turn=="1"?playerData.p2:playerData.p1;
+        let currentTurnData = turn=="1"?playerData.p1:playerData.p2;
+        let selection = null;
+        let random=true;
+        if(oppositeTurnData.length >= 2){
+           selection= this.getOppositePlayerWinningData(oppositeTurnData,currentTurnData);
+           if(_.indexOf(selectedData,selection[0])==-1){
+               return selection[0];
+           }
+        }
+        if(random){
+            selection= this.getRandomSelection(selectedData);
+            if(selection != null){
+                return selection[0];
+            }
+        }
+    }
+    getRandomSelection(selectedData){
+        const arr = Array.from(Array(9).keys());
+        return _.difference(arr,selectedData);
+    }
+
+    getOppositePlayerWinningData(oppositeTurnData,currentTurnData){
+        let winningRules = this.getWinningRule();
+        let selection = null;
+        winningRules.map(function (rule){
+            if(_.intersection(rule,oppositeTurnData).length >= 2){
+                let diff= _.difference(rule,oppositeTurnData);
+                if(_.indexOf(oppositeTurnData,diff) == -1){
+                    selection = diff;
+                }
+            }
+        });
+        return selection;
+    }
     getWinningRule() {
         return [
             [0, 1, 2],
